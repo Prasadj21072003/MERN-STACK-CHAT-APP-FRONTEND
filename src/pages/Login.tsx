@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthcontext } from "../Context/Authcontext";
 import { ThreeCircles } from "react-loader-spinner";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const Login = () => {
   const { setauthuser } = useAuthcontext();

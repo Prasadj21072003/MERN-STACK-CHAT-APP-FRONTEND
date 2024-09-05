@@ -9,7 +9,7 @@ import NewGroup from "./NewGroup";
 import Groups from "./Groups";
 import CloseIcon from "@mui/icons-material/Close";
 import { usesocketcontext } from "../Context/Socketcontext";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const Sidebar = () => {
   const { setauthuser, authuser } = useAuthcontext();

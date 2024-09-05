@@ -7,7 +7,7 @@ import {
 } from "react";
 import { useAuthcontext } from "./Authcontext";
 import io from "socket.io-client";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const SocketContext = createContext(undefined);
 

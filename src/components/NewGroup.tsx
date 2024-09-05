@@ -1,4 +1,4 @@
-import { add, backend } from "../../../data";
+import { add, backend } from "../data";
 import Useconversation from "../zustand/Useconversation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";

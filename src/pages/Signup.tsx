@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const Signup = () => {
   const [usernameerror, setusernameerror] = useState(false);

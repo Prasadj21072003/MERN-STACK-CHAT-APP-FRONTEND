@@ -5,7 +5,7 @@ import axios from "axios";
 import { useAuthcontext } from "../Context/Authcontext";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const Name = ({ conversation }: { conversation: any }) => {
   const { authuser } = useAuthcontext();

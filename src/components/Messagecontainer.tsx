@@ -8,7 +8,7 @@ import Uselistenmsg from "./Uselistenmsg";
 import { usesocketcontext } from "../Context/Socketcontext";
 import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutlined";
 import { ThreeCircles } from "react-loader-spinner";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 const Messagecontainer = () => {
   const { authuser } = useAuthcontext();

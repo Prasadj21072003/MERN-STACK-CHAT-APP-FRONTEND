@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import { backend } from "../../../data";
+import { backend } from "../data";
 
 type Authusertype = {
   acesstoken: string;
