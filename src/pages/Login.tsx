@@ -11,8 +11,8 @@ const Login = () => {
   const [loading, setloading] = useState(false);
 
   const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
+    username: "random",
+    password: "random",
   });
 
   const handlesubmit = async (e: React.FormEvent) => {
@@ -50,6 +50,7 @@ const Login = () => {
           type="text"
           name="username"
           id=""
+          value={inputs?.username}
           onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
           className="bg-slate-800  px-[10px] py-[9px]  border-none text-sm rounded-lg text-white focus:outline-none"
         />
@@ -58,6 +59,7 @@ const Login = () => {
           type="text"
           name="password"
           id=""
+          value={inputs?.password}
           onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
           className="bg-slate-800  px-[10px] py-[9px]  border-none text-sm rounded-lg text-white focus:outline-none"
         />

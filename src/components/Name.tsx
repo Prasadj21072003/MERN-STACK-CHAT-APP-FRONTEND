@@ -19,6 +19,9 @@ const Name = ({ conversation }: { conversation: any }) => {
     roommember,
     setroommember,
     setmakeroomresult,
+
+    msgfrom,
+    setmsgfrom,
   } = Useconversation();
   const [lastmsg, setlastmsg] = useState();
   const { onilneusers }: any = usesocketcontext();
@@ -44,19 +47,48 @@ const Name = ({ conversation }: { conversation: any }) => {
       } catch (error) {
         console.log(error);
       }
+    } else {
+      try {
+        const res = await axios.get(
+          `${backend}/api/message/group/${conversation?.conversationId}`,
+          {
+            headers: {
+              token: `${authuser?.acesstoken}`,
+            },
+          }
+        );
+
+        var i = res?.data?.message?.length - 1;
+        if (i >= 0) {
+          setlastmsg(res?.data?.message[i]?.body);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
   useEffect(() => {
     getmsg();
   }, [message]);
+
   useEffect(() => {
     setmessage();
+
+    if (msgfrom.includes(selectedconversation?.id)) {
+      let arr = msgfrom?.filter((i: string) => i !== selectedconversation?.id);
+
+      setmsgfrom(arr);
+    }
   }, [selectedconversation]);
 
   return (
     <div
-      className={`relative px-[20px] h-[70px] w-full border-y-[1px] border-slate-700 flex items-center cursor-pointer ${
+      className={` ${
+        conversation.hasOwnProperty("groupname") && newroom
+          ? "hidden"
+          : "relative"
+      } px-[20px] h-[70px] w-full border-y-[1px] border-slate-700 flex items-center cursor-pointer ${
         conversation.id === selectedconversation?.id ? "bg-slate-800" : ""
       } `}
       onClick={(e) => {
@@ -107,12 +139,20 @@ const Name = ({ conversation }: { conversation: any }) => {
           </span>
         )}
 
-        {!newroom && (
+        {!newroom && msgfrom.includes(conversation?.id) && (
+          <span className="text-slate-300 italic font-normal text-[13px] ml-[20px] flex items-center">
+            New Message{" "}
+            <div className="rounded-full w-[10px] h-[10px] bg-blue-400 ml-[10px]"></div>
+          </span>
+        )}
+
+        {!newroom && !msgfrom.includes(conversation?.id) && (
           <span className="text-white font-normal text-[13px]  ml-[20px]">
             {lastmsg}
           </span>
         )}
       </div>
+
       {newroom && !conversation.hasOwnProperty("groupname") && (
         <div
           onClick={() => {

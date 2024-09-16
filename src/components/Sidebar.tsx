@@ -6,7 +6,7 @@ import axios from "axios";
 import Useconversation from "../zustand/Useconversation";
 import Names from "./Names";
 import NewGroup from "./NewGroup";
-import Groups from "./Groups";
+
 import CloseIcon from "@mui/icons-material/Close";
 import { usesocketcontext } from "../Context/Socketcontext";
 import { backend } from "../data";
@@ -20,25 +20,18 @@ const Sidebar = () => {
     setgetconversations,
     setSelectedconversation,
     setconvo,
+    updatedconvo,
     convo,
+
     newroom,
     makeroomresult,
     setmakeroomresult,
     message,
   } = Useconversation();
-  const [groups, setgroups] = useState([]);
-
-  type conversationtype = {
-    id: string;
-    fullName: string;
-    profilepic: string;
-  };
-  type grouptype = {
-    id: string;
-    groupname: string;
-  };
 
   const [searchinput, setsearchinput] = useState("");
+
+  const [order, setorder] = useState(false);
 
   const handlelogout = async () => {
     const res = await axios.post(`${backend}/api/auth/logout`);
@@ -54,9 +47,7 @@ const Sidebar = () => {
         },
       });
 
-      setgroups(res?.data[1]);
-
-      setgetconversations(res?.data[0]);
+      setgetconversations(res?.data[1].concat(res?.data[0]));
     } catch (error) {
       console.log(error);
     }
@@ -68,33 +59,40 @@ const Sidebar = () => {
 
   useEffect(() => {
     getconversation();
+
     Socket.on("recieved-members", () => {
       console.log("recieved-members on ");
       getconversation();
     });
   }, []);
 
+  useEffect(() => {
+    if (updatedconvo.length > 0) {
+      setorder(true);
+    }
+  }, [updatedconvo]);
+
   const search = (e: any) => {
     e.preventDefault();
 
-    groups.map((item: grouptype) => {
-      if (item?.groupname.toLowerCase().includes(searchinput.toLowerCase())) {
-        if (item?.groupname.toLowerCase() === searchinput.toLowerCase()) {
-          setSelectedconversation(item);
-          setconvo(true);
-          console.log(item);
-          setsearchinput("");
-        }
-      }
-    });
+    getconversations.map((item: any) => {
+      if (item?.hasOwnProperty("groupname")) {
+        if (item?.groupname.toLowerCase().includes(searchinput.toLowerCase())) {
+          if (item?.groupname.toLowerCase() === searchinput.toLowerCase()) {
+            setSelectedconversation(item);
+            setconvo(true);
 
-    getconversations.map((item: conversationtype) => {
-      if (item?.fullName.toLowerCase().includes(searchinput.toLowerCase())) {
-        if (item?.fullName.toLowerCase() === searchinput.toLowerCase()) {
-          setSelectedconversation(item);
-          setconvo(true);
-          console.log(item);
-          setsearchinput("");
+            setsearchinput("");
+          }
+        }
+      } else {
+        if (item?.fullName.toLowerCase().includes(searchinput.toLowerCase())) {
+          if (item?.fullName.toLowerCase() === searchinput.toLowerCase()) {
+            setSelectedconversation(item);
+            setconvo(true);
+
+            setsearchinput("");
+          }
         }
       }
     });
@@ -144,14 +142,27 @@ const Sidebar = () => {
           </div>
         )}
         <NewGroup />
-
-        {!newroom && <Groups data={groups} />}
-        <Names data={getconversations} />
+        {order ? (
+          <Names data={updatedconvo} />
+        ) : (
+          <Names data={getconversations} />
+        )}
       </div>
       <div
-        className="px-[20px] cursor-pointer h-[62px] flex items-center  border-t-[1px] border-slate-700  w-full "
+        className="px-[20px] cursor-pointer h-[62px] flex items-center justify-between border-t-[1px] border-slate-700  w-full "
         onClick={handlelogout}
       >
+        <div className="flex  items-center">
+          <img
+            src={authuser?.profilepic}
+            alt=""
+            className="rounded-full w-[50px] h-[50px] object-cover"
+          />
+          <span className="text-blue-400 font-bold ml-[20px]">
+            {" "}
+            {authuser?.fullName} ( You )
+          </span>
+        </div>
         <LogoutOutlinedIcon className="text-white" />
       </div>
     </div>

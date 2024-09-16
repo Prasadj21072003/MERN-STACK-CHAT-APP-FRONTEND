@@ -35,7 +35,7 @@ const Messagecontainer = () => {
     try {
       if (selectedconversation.hasOwnProperty("groupname")) {
         const res = await axios.get(
-          `mern-stack-chat-app-8b9d-u4mtk7gcl.vercel.app/api/message/group/${selectedconversation?.conversationId}`,
+          `${backend}/api/message/group/${selectedconversation?.conversationId}`,
           {
             headers: {
               token: `${authuser?.acesstoken}`,

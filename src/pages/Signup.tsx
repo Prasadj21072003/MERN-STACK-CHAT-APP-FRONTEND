@@ -27,6 +27,7 @@ const Signup = () => {
       ) {
         const res = await axios.post(`${backend}/api/auth/signup`, inputs);
 
+        console.log(res?.data);
         if (res?.data === "Username already exists") {
           setusernameerror(true);
         } else {

@@ -6,13 +6,13 @@ import Name from "./Name";
 const Groups = ({ data }) => {
   const { authuser } = useAuthcontext();
 
-  return (
+  /*  return (
     <div>
       {data?.map((item, i) => (
         <Name key={i} conversation={item} />
       ))}
     </div>
-  );
+  );*/
 };
 
 export default Groups;
