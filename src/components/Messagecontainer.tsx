@@ -104,15 +104,15 @@ const Messagecontainer = () => {
     } catch (error) {
       console.log(error);
     }
-    const refcurrent = ref?.current;
-    if (refcurrent) {
-      refcurrent.scrollTop = refcurrent.scrollHeight;
-    }
   };
 
   useEffect(() => {
     getmsg();
-  }, [selectedconversation, message]);
+    const refcurrent = ref?.current;
+    if (refcurrent) {
+      refcurrent.scrollTop = refcurrent.scrollHeight;
+    }
+  }, [inputmsg]);
 
   useEffect(() => {
     if (selectedconversation.hasOwnProperty("groupname")) {
@@ -133,9 +133,9 @@ const Messagecontainer = () => {
 
   return (
     <div
-      className={`bg-[#202329] border-l-[1px] border-slate-700  xl:w-[700px] lg:w-[600px] ${
+      className={`bg-[#202329] border-l-[1px] border-slate-700  md:w-[80%] ${
         convo ? "max-md:visible" : "max-md:hidden"
-      } max-lg:w-[330px]   relative`}
+      } max-lg:w-full   relative`}
     >
       <div className=" border px-[20px] h-[70px] w-full border-t-[1px] border-slate-700 flex items-center cursor-pointer ">
         {convo && (
@@ -211,14 +211,14 @@ const Messagecontainer = () => {
         </div>
       </div>
       <div
-        className="bg-[#202329] w-full h-[520px] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
+        className="bg-[#202329]  w-full  h-[78%] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
         ref={ref}
       >
         {message?.map((item: any, i: any) => (
           <Messages key={i} msg={item} />
         ))}
       </div>
-      <div className=" absolute bottom-[0px] border px-[20px] h-[60px] w-full border-t-[1px] border-slate-700 flex items-center cursor-pointer ">
+      <div className=" absolute bottom-[0px] border px-[20px] lg:h-[68px] max-lg:h-[65px] w-full border-t-[1px] border-slate-700 flex items-center cursor-pointer ">
         <div className="w-full flex relative items-center  bg-slate-800  mr-[15px] rounded-lg ">
           <input
             type="text"

@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <div
-      className=" relative  w-[400px] h-[375px] bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100
+      className=" relative  w-[400px] h-[375px] m-[10px] bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-40 border border-gray-100
  "
     >
       <h1 className="font-bold text-[40px] text-white ml-[20px]">Login</h1>

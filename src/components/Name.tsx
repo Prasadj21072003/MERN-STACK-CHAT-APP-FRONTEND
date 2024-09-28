@@ -26,6 +26,7 @@ const Name = ({ conversation }: { conversation: any }) => {
   const [lastmsg, setlastmsg] = useState();
   const { onilneusers }: any = usesocketcontext();
   const online = onilneusers?.includes(conversation?.id);
+
   const [checked, setchecked] = useState(false);
 
   const getmsg = async () => {
@@ -88,7 +89,7 @@ const Name = ({ conversation }: { conversation: any }) => {
         conversation.hasOwnProperty("groupname") && newroom
           ? "hidden"
           : "relative"
-      } px-[20px] h-[70px] w-full border-y-[1px] border-slate-700 flex items-center cursor-pointer ${
+      } px-[20px] h-[70px] lg:h-[80px] w-full border-y-[1px] border-slate-700 flex items-center cursor-pointer ${
         conversation.id === selectedconversation?.id ? "bg-slate-800" : ""
       } `}
       onClick={(e) => {

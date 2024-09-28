@@ -11,10 +11,10 @@ import {
 
 const App = () => {
   const { authuser } = useAuthcontext();
-
+  // px-[36px] sm:px-[86px] bg-gradient-to-r from-zinc-800 to-fuchsia-900
   return (
     <Router>
-      <div className="h-screen  flex justify-center items-center px-[36px] sm:px-[86px] bg-gradient-to-r from-zinc-800 to-fuchsia-900">
+      <div className="h-screen  flex justify-center items-center bg-gradient-to-r from-zinc-800 to-fuchsia-900  ">
         <Routes>
           <Route
             path="/"

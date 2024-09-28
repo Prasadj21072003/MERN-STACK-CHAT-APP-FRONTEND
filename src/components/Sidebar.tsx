@@ -104,7 +104,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`bg-[#202329] flex flex-col   h-full w-[330px]   ${
+      className={`bg-[#202329] flex flex-col   h-full max-md:w-[400px] max-sm:w-[450px]  md:w-[450px]   ${
         convo ? "max-md:hidden" : "max-md:visible"
       } `}
     >
@@ -149,7 +149,7 @@ const Sidebar = () => {
         )}
       </div>
       <div
-        className="px-[20px] cursor-pointer h-[62px] flex items-center justify-between border-t-[1px] border-slate-700  w-full "
+        className="px-[20px] cursor-pointer h-[70px] flex items-center justify-between border-t-[1px] border-slate-700  w-full "
         onClick={handlelogout}
       >
         <div className="flex  items-center">
