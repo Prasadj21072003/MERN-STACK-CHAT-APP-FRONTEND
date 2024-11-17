@@ -113,7 +113,7 @@ const Messagecontainer = () => {
     if (refcurrent) {
       refcurrent.scrollTop = refcurrent.scrollHeight;
     }
-  }, [inputmsg]);
+  }, [selectedconversation, inputmsg]);
 
   useEffect(() => {
     if (selectedconversation.hasOwnProperty("groupname")) {
