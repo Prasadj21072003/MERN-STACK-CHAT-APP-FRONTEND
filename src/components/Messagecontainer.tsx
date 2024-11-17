@@ -42,7 +42,7 @@ const Messagecontainer = () => {
             },
           }
         );
-
+        console.log(res?.data?.message);
         setmessage(res?.data?.message);
       } else {
         const res = await axios.get(
@@ -53,7 +53,7 @@ const Messagecontainer = () => {
             },
           }
         );
-
+        console.log(res?.data);
         setmessage(res?.data);
       }
     } catch (error) {
@@ -108,6 +108,7 @@ const Messagecontainer = () => {
 
   useEffect(() => {
     getmsg();
+    console.log(message);
     const refcurrent = ref?.current;
     if (refcurrent) {
       refcurrent.scrollTop = refcurrent.scrollHeight;
