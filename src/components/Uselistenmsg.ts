@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usesocketcontext } from "../Context/Socketcontext";
 import Useconversation from "../zustand/Useconversation";
 import { backend, sound } from "../data";
@@ -7,7 +7,7 @@ import { useAuthcontext } from "../Context/Authcontext";
 
 const Uselistenmsg = () => {
   const { Socket }: any = usesocketcontext();
-
+  const [convoid, setconvoid] = useState();
   const { authuser } = useAuthcontext();
   const ref = useRef() as React.MutableRefObject<HTMLDivElement>;
 
@@ -21,6 +21,10 @@ const Uselistenmsg = () => {
     updatedconvo,
     setrefreshfrom,
   } = Useconversation();
+
+  useEffect(() => {
+    setconvoid(selectedconversation);
+  }, [selectedconversation]);
 
   useEffect(() => {
     Socket?.on("groupid", ({ msgfromid }: { msgfromid: string }) => {
@@ -44,7 +48,9 @@ const Uselistenmsg = () => {
   }, [Socket]);
 
   var convoupdate = (msgfromid: any) => {
-    if (msgfromid !== selectedconversation?.id) {
+    console.log("selectedconvoid : " + msgfromid);
+    if (msgfromid !== convoid) {
+      console.log(msgfromid);
       setmsgfrom([...msgfrom, msgfromid]);
       setrefreshfrom((prev: boolean) => !prev);
     }

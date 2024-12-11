@@ -19,11 +19,11 @@ const Name = memo(({ conversation }: { conversation: any }) => {
     roommember,
     setroommember,
     setmakeroomresult,
-
     msgfrom,
     setmsgfrom,
   } = Useconversation();
   const [lastmsg, setlastmsg] = useState();
+
   const { onilneusers }: any = usesocketcontext();
   const online = onilneusers?.includes(conversation?.id);
 
@@ -78,7 +78,6 @@ const Name = memo(({ conversation }: { conversation: any }) => {
       let arr = msgfrom?.filter((i: string) => i !== selectedconversation?.id);
       setmsgfrom(arr);
     }
-    console.log("arr");
   }, [selectedconversation, refreshfrom]);
 
   return (
