@@ -1,10 +1,10 @@
-import React, { memo, useEffect } from "react";
+import { memo } from "react";
 
 import Nameskeleton from "./Nameskeleton";
 import Namerender from "./Namerender";
 import Useconversation from "../zustand/Useconversation";
 
-const Names = memo(({ data }) => {
+const Names = memo(({ data }: any) => {
   const { convoload } = Useconversation();
 
   return (
@@ -13,7 +13,3 @@ const Names = memo(({ data }) => {
 });
 
 export default Names;
-
-/*  {data?.map((item, i) => (
-  <Name key={i} conversation={item} />
-))} */
