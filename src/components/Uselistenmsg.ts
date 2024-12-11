@@ -24,6 +24,7 @@ const Uselistenmsg = () => {
   useEffect(() => {
     Socket?.on("groupid", ({ msgfromid }: { msgfromid: string }) => {
       convoupdate(msgfromid);
+      refreshmsg();
 
       return () => Socket.off("groupid");
     });
@@ -34,13 +35,14 @@ const Uselistenmsg = () => {
       "newMessage",
       ({ msgfromid }: { newmsg: any; msgfromid: string }) => {
         convoupdate(msgfromid);
+        refreshmsg();
 
         return () => Socket.off("newMessage");
       }
     );
   }, [Socket]);
 
-  var convoupdate = async (msgfromid: any) => {
+  var convoupdate = (msgfromid: any) => {
     if (msgfromid !== selectedconversation?.id) {
       setmsgfrom([...msgfrom, msgfromid]);
 
@@ -63,26 +65,28 @@ const Uselistenmsg = () => {
 
         setupdatedconvo(arr2);
       }
-
-      const res = await axios.get(
-        `${backend}/api/message/${selectedconversation.id}`,
-        {
-          headers: {
-            token: `${authuser?.acesstoken}`,
-          },
-        }
-      );
-
-      await setmessage(res?.data);
-
-      const refcurrent = ref?.current;
-      if (refcurrent) {
-        refcurrent.scrollTop = refcurrent.scrollHeight;
-      }
-
-      let beat = new Audio(sound);
-      beat.play();
     }
+  };
+
+  var refreshmsg = async () => {
+    const res = await axios.get(
+      `${backend}/api/message/${selectedconversation.id}`,
+      {
+        headers: {
+          token: `${authuser?.acesstoken}`,
+        },
+      }
+    );
+
+    await setmessage(res?.data);
+
+    const refcurrent = ref?.current;
+    if (refcurrent) {
+      refcurrent.scrollTop = refcurrent.scrollHeight;
+    }
+
+    let beat = new Audio(sound);
+    beat.play();
   };
 };
 
