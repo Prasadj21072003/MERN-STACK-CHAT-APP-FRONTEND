@@ -13,7 +13,7 @@ const Name = memo(({ conversation }: { conversation: any }) => {
     setSelectedconversation,
     selectedconversation,
     setconvo,
-
+    refreshfrom,
     message,
     newroom,
     roommember,
@@ -79,7 +79,7 @@ const Name = memo(({ conversation }: { conversation: any }) => {
 
       setmsgfrom(arr);
     }
-  }, [selectedconversation]);
+  }, [selectedconversation, refreshfrom]);
 
   return (
     <div

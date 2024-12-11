@@ -19,6 +19,7 @@ const Uselistenmsg = () => {
     msgfrom,
     setupdatedconvo,
     updatedconvo,
+    setrefreshfrom,
   } = Useconversation();
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const Uselistenmsg = () => {
   var convoupdate = (msgfromid: any) => {
     if (msgfromid !== selectedconversation?.id) {
       setmsgfrom([...msgfrom, msgfromid]);
+      setrefreshfrom((prev: boolean) => !prev);
     }
     let temp = {};
     getconversations?.map((i: any) => {

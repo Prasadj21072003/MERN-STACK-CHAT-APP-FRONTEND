@@ -27,6 +27,8 @@ const Useconversation = create((set) => ({
   setupdatedconvo: (newupdatedconvo) => set({ updatedconvo: newupdatedconvo }),
   convoorder: [],
   setconvoorder: (convoorder) => set({ convoorder: convoorder }),
+  refreshfrom: false,
+  setrefreshfrom: (boolean) => set({ refreshfrom: boolean }),
 }));
 
 export default Useconversation;
