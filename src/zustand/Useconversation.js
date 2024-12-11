@@ -29,7 +29,7 @@ const Useconversation = create((set) => ({
   setconvoorder: (convoorder) => set({ convoorder: convoorder }),
   refreshfrom: false,
   setrefreshfrom: (boolean) => set({ refreshfrom: boolean }),
-  messageloading: false,
+  messageloading: true,
   setmessageloading: (boolean) => set({ messageloading: boolean }),
 }));
 

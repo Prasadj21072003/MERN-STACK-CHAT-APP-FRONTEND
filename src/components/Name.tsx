@@ -76,9 +76,9 @@ const Name = memo(({ conversation }: { conversation: any }) => {
   useEffect(() => {
     if (msgfrom.includes(selectedconversation?.id)) {
       let arr = msgfrom?.filter((i: string) => i !== selectedconversation?.id);
-
       setmsgfrom(arr);
     }
+    console.log("arr");
   }, [selectedconversation, refreshfrom]);
 
   return (

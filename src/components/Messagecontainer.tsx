@@ -34,7 +34,6 @@ const Messagecontainer = memo(() => {
 
   const getmsg = async () => {
     try {
-      setmessageloading(true);
       if (selectedconversation.hasOwnProperty("groupname")) {
         const res = await axios.get(
           `${backend}/api/message/group/${selectedconversation?.conversationId}`,
@@ -227,13 +226,13 @@ const Messagecontainer = memo(() => {
         </div>
       </div>
       {
-        <div className="w-full h-full">
+        <div className="w-full h-full ">
           {messageloading ? (
-            <div className="w-full h-full">
+            <div className="w-full h-[78%]  flex justify-center items-center">
               <Oval
                 visible={true}
-                height="80"
-                width="80"
+                height="130"
+                width="130"
                 color="white"
                 ariaLabel="oval-loading"
                 wrapperStyle={{}}
@@ -242,7 +241,7 @@ const Messagecontainer = memo(() => {
             </div>
           ) : (
             <div
-              className="bg-[#202329]  w-full  h-[78%] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
+              className="bg-[#202329]    w-full  h-[78%] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
               ref={ref}
             >
               {message?.map((item: any, i: any) => (
