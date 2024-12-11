@@ -45,26 +45,25 @@ const Uselistenmsg = () => {
   var convoupdate = (msgfromid: any) => {
     if (msgfromid !== selectedconversation?.id) {
       setmsgfrom([...msgfrom, msgfromid]);
-
-      let temp = {};
-      getconversations?.map((i: any) => {
-        if (i?.id === msgfromid) {
-          temp = i;
-        }
-      });
-
-      let arr = [];
-      if (updatedconvo.length > 0) {
-        arr = updatedconvo?.filter((i: any) => i?.id !== msgfromid);
-      } else {
-        arr = getconversations?.filter((i: any) => i?.id !== msgfromid);
+    }
+    let temp = {};
+    getconversations?.map((i: any) => {
+      if (i?.id === msgfromid) {
+        temp = i;
       }
-      if (Object.keys(temp).length > 0) {
-        let arr2 = [];
-        arr2 = [temp].concat(arr);
+    });
 
-        setupdatedconvo(arr2);
-      }
+    let arr = [];
+    if (updatedconvo.length > 0) {
+      arr = updatedconvo?.filter((i: any) => i?.id !== msgfromid);
+    } else {
+      arr = getconversations?.filter((i: any) => i?.id !== msgfromid);
+    }
+    if (Object.keys(temp).length > 0) {
+      let arr2 = [];
+      arr2 = [temp].concat(arr);
+
+      setupdatedconvo(arr2);
     }
   };
 
