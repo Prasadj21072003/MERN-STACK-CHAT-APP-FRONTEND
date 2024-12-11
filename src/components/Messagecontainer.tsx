@@ -91,6 +91,30 @@ const Messagecontainer = memo(() => {
           setloading(false);
           getmsg();
 
+          let temp = {};
+          getconversations?.map((i: any) => {
+            if (i?.id === selectedconversation.id) {
+              temp = i;
+            }
+          });
+
+          let arr = [];
+          if (updatedconvo.length > 0) {
+            arr = updatedconvo?.filter(
+              (i: any) => i?.id !== selectedconversation.id
+            );
+          } else {
+            arr = getconversations?.filter(
+              (i: any) => i?.id !== selectedconversation.id
+            );
+          }
+          if (Object.keys(temp).length > 0) {
+            let arr2 = [];
+            arr2 = [temp].concat(arr);
+
+            setupdatedconvo(arr2);
+          }
+
           const refcurrent = ref?.current;
           if (refcurrent) {
             refcurrent.scrollTop = refcurrent.scrollHeight;
