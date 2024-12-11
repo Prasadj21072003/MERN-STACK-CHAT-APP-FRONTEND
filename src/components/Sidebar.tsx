@@ -1,7 +1,7 @@
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useAuthcontext } from "../Context/Authcontext";
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import Useconversation from "../zustand/Useconversation";
 import Names from "./Names";
@@ -11,7 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { usesocketcontext } from "../Context/Socketcontext";
 import { backend } from "../data";
 
-const Sidebar = () => {
+const Sidebar = memo(() => {
   const { setauthuser, authuser } = useAuthcontext();
   const { Socket }: any = usesocketcontext();
 
@@ -22,7 +22,7 @@ const Sidebar = () => {
     setconvo,
     updatedconvo,
     convo,
-
+    setconvoload,
     newroom,
     makeroomresult,
     setmakeroomresult,
@@ -39,7 +39,7 @@ const Sidebar = () => {
     setauthuser(null);
   };
 
-  const getconversation = async () => {
+  const getconversation = useCallback(async () => {
     try {
       const res = await axios.get(`${backend}/api/message/conversations`, {
         headers: {
@@ -48,10 +48,11 @@ const Sidebar = () => {
       });
 
       setgetconversations(res?.data[1].concat(res?.data[0]));
+      setconvoload(true);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getconversation();
@@ -67,7 +68,7 @@ const Sidebar = () => {
   }, []);
 
   useEffect(() => {
-    if (updatedconvo.length > 0) {
+    if (updatedconvo?.length > 0) {
       setorder(true);
     }
   }, [updatedconvo]);
@@ -167,6 +168,6 @@ const Sidebar = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Sidebar;

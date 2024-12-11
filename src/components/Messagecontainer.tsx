@@ -1,6 +1,6 @@
 import ArrowCircleUpOutlinedIcon from "@mui/icons-material/ArrowCircleUpOutlined";
 import Useconversation from "../zustand/Useconversation";
-import { useEffect, useRef, useState } from "react";
+import { memo, Suspense, useEffect, useRef, useState } from "react";
 import { useAuthcontext } from "../Context/Authcontext";
 import axios from "axios";
 import Messages from "./Messages";
@@ -10,7 +10,7 @@ import ArrowCircleLeftOutlinedIcon from "@mui/icons-material/ArrowCircleLeftOutl
 import { ThreeCircles } from "react-loader-spinner";
 import { backend } from "../data";
 
-const Messagecontainer = () => {
+const Messagecontainer = memo(() => {
   const { authuser } = useAuthcontext();
   const [inputmsg, setinputmsg] = useState("");
   const [clearinput, setclearinput] = useState("");
@@ -21,7 +21,6 @@ const Messagecontainer = () => {
 
   const {
     selectedconversation,
-
     message,
     setmessage,
     convo,
@@ -42,7 +41,7 @@ const Messagecontainer = () => {
             },
           }
         );
-        console.log(res?.data?.message);
+
         setmessage(res?.data?.message);
       } else {
         const res = await axios.get(
@@ -53,7 +52,7 @@ const Messagecontainer = () => {
             },
           }
         );
-        console.log(res?.data);
+
         setmessage(res?.data);
       }
     } catch (error) {
@@ -85,6 +84,12 @@ const Messagecontainer = () => {
 
           setinputmsg("");
           setloading(false);
+          getmsg();
+
+          const refcurrent = ref?.current;
+          if (refcurrent) {
+            refcurrent.scrollTop = refcurrent.scrollHeight;
+          }
         } else {
           const res = await axios.post(
             `${backend}/api/message/sendmsg/${selectedconversation.id}`,
@@ -99,6 +104,12 @@ const Messagecontainer = () => {
 
           setinputmsg("");
           setloading(false);
+          getmsg();
+
+          const refcurrent = ref?.current;
+          if (refcurrent) {
+            refcurrent.scrollTop = refcurrent.scrollHeight;
+          }
         }
       }
     } catch (error) {
@@ -108,12 +119,12 @@ const Messagecontainer = () => {
 
   useEffect(() => {
     getmsg();
-    console.log(message);
+
     const refcurrent = ref?.current;
     if (refcurrent) {
       refcurrent.scrollTop = refcurrent.scrollHeight;
     }
-  }, [selectedconversation, inputmsg, message, setmessage]);
+  }, [selectedconversation]);
 
   useEffect(() => {
     if (selectedconversation.hasOwnProperty("groupname")) {
@@ -128,9 +139,9 @@ const Messagecontainer = () => {
     }
   }, [selectedconversation]);
 
-  Uselistenmsg();
-
   const online = onilneusers?.includes(selectedconversation.id);
+
+  Uselistenmsg();
 
   return (
     <div
@@ -211,14 +222,18 @@ const Messagecontainer = () => {
           )}
         </div>
       </div>
-      <div
-        className="bg-[#202329]  w-full  h-[78%] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
-        ref={ref}
-      >
-        {message?.map((item: any, i: any) => (
-          <Messages key={i} msg={item} />
-        ))}
-      </div>
+      {
+        <div
+          className="bg-[#202329]  w-full  h-[78%] py-[10px] px-[20px] overflow-y-auto relative flex flex-col overflow-x-hidden   "
+          ref={ref}
+        >
+          <Suspense fallback={"Loading..."}>
+            {message?.map((item: any, i: any) => (
+              <Messages key={i} msg={item} />
+            ))}
+          </Suspense>
+        </div>
+      }
       <div className=" absolute bottom-[0px] border px-[20px] lg:h-[68px] max-lg:h-[65px] w-full border-t-[1px] border-slate-700 flex items-center cursor-pointer ">
         <div className="w-full flex relative items-center  bg-slate-800  mr-[15px] rounded-lg ">
           <input
@@ -252,6 +267,6 @@ const Messagecontainer = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Messagecontainer;

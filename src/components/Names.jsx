@@ -1,14 +1,19 @@
-import React from "react";
-import Name from "./Name";
+import React, { memo, useEffect } from "react";
 
-const Names = ({ data }) => {
+import Nameskeleton from "./Nameskeleton";
+import Namerender from "./Namerender";
+import Useconversation from "../zustand/Useconversation";
+
+const Names = memo(({ data }) => {
+  const { convoload } = Useconversation();
+
   return (
-    <div>
-      {data?.map((item, i) => (
-        <Name key={i} conversation={item} />
-      ))}
-    </div>
+    <div>{!convoload ? <Nameskeleton /> : <Namerender data={data} />}</div>
   );
-};
+});
 
 export default Names;
+
+/*  {data?.map((item, i) => (
+  <Name key={i} conversation={item} />
+))} */

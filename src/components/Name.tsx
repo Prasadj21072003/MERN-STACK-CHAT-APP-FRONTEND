@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { usesocketcontext } from "../Context/Socketcontext";
 import Useconversation from "../zustand/Useconversation";
 import axios from "axios";
@@ -7,13 +7,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CircleOutlinedIcon from "@mui/icons-material/CircleOutlined";
 import { backend } from "../data";
 
-const Name = ({ conversation }: { conversation: any }) => {
+const Name = memo(({ conversation }: { conversation: any }) => {
   const { authuser } = useAuthcontext();
   const {
     setSelectedconversation,
     selectedconversation,
     setconvo,
-    setmessage,
+
     message,
     newroom,
     roommember,
@@ -74,8 +74,6 @@ const Name = ({ conversation }: { conversation: any }) => {
   }, [message]);
 
   useEffect(() => {
-    setmessage();
-
     if (msgfrom.includes(selectedconversation?.id)) {
       let arr = msgfrom?.filter((i: string) => i !== selectedconversation?.id);
 
@@ -196,6 +194,6 @@ const Name = ({ conversation }: { conversation: any }) => {
       )}
     </div>
   );
-};
+});
 
 export default Name;

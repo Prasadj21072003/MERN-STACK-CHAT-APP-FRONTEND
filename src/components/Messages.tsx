@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useAuthcontext } from "../Context/Authcontext";
 import Useconversation from "../zustand/Useconversation";
 import { motion } from "framer-motion";
 
-const Messages = ({ msg }: { msg: any }) => {
+const Messages = memo(({ msg }: { msg: any }) => {
   const [side, setside] = useState("");
   const [sender, setsender] = useState({
     fullName: "",
@@ -93,6 +93,6 @@ const Messages = ({ msg }: { msg: any }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Messages;

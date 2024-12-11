@@ -2,12 +2,12 @@ import { add, backend } from "../data";
 import Useconversation from "../zustand/Useconversation";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { usesocketcontext } from "../Context/Socketcontext";
 import axios from "axios";
 import { useAuthcontext } from "../Context/Authcontext";
 
-const NewGroup = () => {
+const NewGroup = memo(() => {
   const { Socket }: any = usesocketcontext();
   const { authuser } = useAuthcontext();
   const { newroom, setnewroom, roommember, setmakeroomresult } =
@@ -113,6 +113,6 @@ const NewGroup = () => {
       )}
     </div>
   );
-};
+});
 
 export default NewGroup;

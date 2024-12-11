@@ -1,7 +1,8 @@
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import { useAuthcontext } from "../Context/Authcontext";
+import { memo } from "react";
 
-const Nochatrcontainer = () => {
+const Nochatrcontainer = memo(() => {
   const { authuser } = useAuthcontext();
 
   return (
@@ -13,6 +14,6 @@ const Nochatrcontainer = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Nochatrcontainer;
